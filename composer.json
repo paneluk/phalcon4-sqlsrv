@@ -1,10 +1,10 @@
 {
-    "name": "baka/phalcon-sqlsrv",
-    "description": "Baka Component for Phalcon - MS SQL Server (PDO) Adapter",
+    "name": "qualiasystems/phalcon-sqlsrv",
+    "description": "Qualia Systems Inc. Component for Phalcon - MS SQL Server (PDO) Adapter",
     "keywords": ["framework", "phalcon", "sqlsrv"],
     "authors": [{
-        "name": "ToNict",
-        "email": "shinobi.wk@hotmail.com"
+        "name": "Futoshi Okazaki",
+        "email": "futoshi@qualias.jp"
     }],
     "support": {
         "issues": "https://github.com/phalcon/incubator/issues",
