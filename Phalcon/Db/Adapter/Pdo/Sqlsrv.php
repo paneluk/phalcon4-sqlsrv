@@ -304,7 +304,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param type $bindTypes
      * @return type
      */
-    public function query($sql, $bindParams = null, $bindTypes = null) {
+    public function query2($sql, $bindParams = null, $bindTypes = null) {
         // echo '---- ---- ---- ---- ----<br><br>';
         if (is_string($sql)) {
             //check sql server keyword
@@ -356,7 +356,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return bool|\Phalcon\Db\ResultInterface
      */
-    public function query2($sqlStatement, $bindParams = null, $bindTypes = null) {
+    public function query($sqlStatement, $bindParams = null, $bindTypes = null) {
         $eventsManager = $this->_eventsManager;
 
         /*
