@@ -1,6 +1,11 @@
 # Phalcon - MS SQL Server (PDO) Adapter
 
-- Phalcon 3.0+ support
+- Phalcon 3.4+ support
+
+- PHP 7.3+ support
+
+
+- Compatible with PHP 7.3.13 + Phalcon 3.4.3 .
 
 ```php
 $di->set('db', function() use ($config) {
@@ -11,5 +16,6 @@ $di->set('db', function() use ($config) {
 		"dbname"       => $config->database->name
 	));
 });
+
 
 ```
