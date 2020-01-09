@@ -379,14 +379,20 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
             $cursor = \PDO::CURSOR_FWDONLY;
         }
 
-        if (is_array($bindParams)) {
-            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
-            if (is_object($statement)) {
-                $statement = $this->executePrepared($statement, $bindParams, $bindTypes);
+
+        try {
+            if (is_array($bindParams)) {
+                $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
+                if (is_object($statement)) {
+                    $statement = $this->executePrepared($statement, $bindParams, $bindTypes);
+                }
+            } else {
+                $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
+                $statement->execute();
             }
-        } else {
-            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
-            $statement->execute();
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            error_log(var_export($statement,true));
         }
 
         /*
