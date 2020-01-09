@@ -7,6 +7,13 @@
 
 - Compatible with PHP 7.3.13 + Phalcon 3.4.3 .
 
+- instalation
+
+```
+composer require qualiasystems/phalcon-sqlsrv
+```
+
+
 ```php
 $di->set('db', function() use ($config) {
 	return new \Phalcon\Db\Adapter\Pdo\Sqlsrv(array(
