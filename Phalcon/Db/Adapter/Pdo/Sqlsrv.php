@@ -47,10 +47,12 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
             $options = $descriptor['options'];
             unset($descriptor['options']);
         } else {
-            $options = array();
+            $options = [];
         }
 
-        $dsn = "sqlsrv:server=" . $descriptor['host'] . ";database=" . $descriptor['dbname'] . ";";
+        $dsn = "sqlsrv:server=" . $descriptor['host'] .
+                ";database=" . $descriptor['dbname'] .
+                ";MultipleActiveResultSets=false";
         $dbusername = $descriptor['username'];
         $dbpassword = $descriptor['password'];
 
@@ -392,7 +394,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            error_log(var_export($statement,true));
+            error_log(var_export($statement, true));
         }
 
         /*
