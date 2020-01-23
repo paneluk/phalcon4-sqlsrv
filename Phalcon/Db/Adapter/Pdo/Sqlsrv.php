@@ -420,7 +420,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @return boolean
      * @throws \Phalcon\Db\Exception
      */
-    public function insert($table, array $values, $fields = NULL, $dataTypes = NULL) { // 2.x
+    public function insert2($table, array $values, $fields = NULL, $dataTypes = NULL) { // 2.x
         $placeholders;
         $insertValues;
         $bindDataTypes;
