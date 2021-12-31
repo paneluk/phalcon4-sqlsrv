@@ -776,7 +776,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo\AbstractPdo implements \Phalcon\Db\
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function begin($nesting = false)
+    public function begin($nesting = false) :bool
     {
         //						$this->execute('SET QUOTED_IDENTIFIER OFF');
         //						$this->execute('SET NOCOUNT OFF');
@@ -790,7 +790,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo\AbstractPdo implements \Phalcon\Db\
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function commit($nesting = false)
+    public function commit($nesting = false) :bool
     {
         $this->execute('COMMIT TRANSACTION');
         return true;
@@ -802,7 +802,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo\AbstractPdo implements \Phalcon\Db\
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function rollBack($nesting = false)
+    public function rollBack($nesting = false) :bool
     {
         $this->execute('ROLLBACK TRANSACTION');
         return true;
