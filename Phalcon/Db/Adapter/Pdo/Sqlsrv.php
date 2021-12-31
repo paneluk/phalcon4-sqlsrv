@@ -21,7 +21,7 @@ use Phalcon\Db\Result\PdoSqlsrv as ResultPdo;
  *
  * @property \Phalcon\Db\Dialect\Sqlsrv $_dialect
  */
-class Sqlsrv extends \Phalcon\Db\Adapter\AbstractPdo implements \Phalcon\Db\AdapterInterface
+class Sqlsrv extends \Phalcon\Db\Adapter\Pdo\AbstractPdo implements \Phalcon\Db\AdapterInterface
 {
 
     protected $_type = 'sqlsrv';
