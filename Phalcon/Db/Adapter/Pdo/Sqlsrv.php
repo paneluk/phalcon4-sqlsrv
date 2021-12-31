@@ -21,7 +21,8 @@ use Phalcon\Db\Result\PdoSqlsrv as ResultPdo;
  *
  * @property \Phalcon\Db\Dialect\Sqlsrv $_dialect
  */
-class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInterface {
+class Sqlsrv extends \Phalcon\Db\Adapter\AbstractPdo implements \Phalcon\Db\AdapterInterface
+{
 
     protected $_type = 'sqlsrv';
     protected $_dialectType = 'sqlsrv';
@@ -35,7 +36,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return bool
      */
-    public function connect(array $descriptor = null) {
+    public function connect(array $descriptor = null)
+    {
         if (is_null($descriptor) === true) {
             $descriptor = $this->_descriptor;
         }
@@ -51,8 +53,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
         }
 
         $dsn = "sqlsrv:server=" . $descriptor['host'] .
-                ";database=" . $descriptor['dbname'] .
-                ";MultipleActiveResultSets=false";
+            ";database=" . $descriptor['dbname'] .
+            ";MultipleActiveResultSets=false";
         $dbusername = $descriptor['username'];
         $dbpassword = $descriptor['password'];
 
@@ -75,6 +77,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
             $dialectObject = new $dialectClass();
             $this->_dialect = $dialectObject;
         }
+        return true;
     }
 
     /**
@@ -88,7 +91,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return \Phalcon\Db\Column
      */
-    public function describeColumns($table, $schema = null) {
+    public function describeColumns($table, $schema = null): array
+    {
         $oldColumn = null;
 
         /*
@@ -117,7 +121,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
             $autoIncrement = false;
             $columnType = $field['TYPE_NAME'];
             switch ($columnType) {
-                /*
+                    /*
                  * Smallint/Bigint/Integers/Int are int
                  */
                 case 'int identity':
@@ -158,7 +162,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                     $definition['bindType'] = Column::BIND_PARAM_DECIMAL;
                     break;
 
-                /*
+                    /*
                  * Boolean
                  */
                 case 'bit':
@@ -166,14 +170,14 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                     $definition['bindType'] = Column::BIND_PARAM_BOOL;
                     break;
 
-                /*
+                    /*
                  * Date are dates
                  */
                 case 'date':
                     $definition['type'] = Column::TYPE_DATE;
                     break;
 
-                /*
+                    /*
                  * Special type for datetime
                  */
                 case 'datetime':
@@ -182,14 +186,14 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                     $definition['type'] = Column::TYPE_DATETIME;
                     break;
 
-                /*
+                    /*
                  * Timestamp are dates
                  */
                 case 'timestamp':
                     $definition['type'] = Column::TYPE_TIMESTAMP;
                     break;
 
-                /*
+                    /*
                  * Chars are chars
                  */
                 case 'char':
@@ -202,7 +206,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                     $definition['type'] = Column::TYPE_VARCHAR;
                     break;
 
-                /*
+                    /*
                  * Text are varchars
                  */
                 case 'text':
@@ -210,14 +214,14 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                     $definition['type'] = Column::TYPE_TEXT;
                     break;
 
-                /*
+                    /*
                  * blob type
                  */
                 case 'varbinary':
                     $definition['type'] = Column::TYPE_BLOB;
                     break;
 
-                /*
+                    /*
                  * By default is string
                  */
                 default:
@@ -292,7 +296,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param string identifier
      * @return string
      */
-    public function escapeIdentifier($identifier) {
+    public function escapeIdentifier($identifier)
+    {
         if (is_array($identifier)) {
             return "[" . $identifier[0] . "].[" . $identifier[1] . "]";
         }
@@ -306,7 +311,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param type $bindTypes
      * @return type
      */
-    public function query2($sql, $bindParams = null, $bindTypes = null) {
+    public function query2($sql, $bindParams = null, $bindTypes = null)
+    {
         // echo '---- ---- ---- ---- ----<br><br>';
         if (is_string($sql)) {
             //check sql server keyword
@@ -358,7 +364,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return bool|\Phalcon\Db\ResultInterface
      */
-    public function query($sqlStatement, $bindParams = null, $bindTypes = null) {
+    public function query($sqlStatement, $bindParams = null, $bindTypes = null)
+    {
         $eventsManager = $this->_eventsManager;
 
         /*
@@ -420,7 +427,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @return boolean
      * @throws \Phalcon\Db\Exception
      */
-    public function insert2($table, array $values, $fields = NULL, $dataTypes = NULL) { // 2.x
+    public function insert2($table, array $values, $fields = NULL, $dataTypes = NULL)
+    { // 2.x
         $placeholders;
         $insertValues;
         $bindDataTypes;
@@ -484,7 +492,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
          */
         $joinedValues = join(", ", $placeholders);
         if (is_array($fields)) {
-            if (false) {//globals_get("db.escape_identifiers") {
+            if (false) { //globals_get("db.escape_identifiers") {
                 $escapedFields = array();
                 foreach ($fields as $field) {
                     $escapedFields[] = $this->escapeIdentifier($field);
@@ -526,7 +534,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @return type
      * @throws \Phalcon\Db\Exception
      */
-    public function update($table, $fields, $values, $whereCondition = null, $dataTypes = null) {
+    public function update($table, $fields, $values, $whereCondition = null, $dataTypes = null)
+    {
         $placeholders = array();
         $updateValues = array();
         if (is_array($dataTypes)) {
@@ -542,7 +551,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                 throw new \Phalcon\Db\Exception("The number of values in the update is not the same as fields");
             }
             $field = $fields[$position];
-            if (false) {//globals_get("db.escape_identifiers") {
+            if (false) { //globals_get("db.escape_identifiers") {
                 $escapedField = $this->escapeIdentifier($field);
             } else {
                 $escapedField = $field;
@@ -569,7 +578,7 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
                 }
             }
         }
-        if (false) {//globals_get("db.escape_identifiers") {
+        if (false) { //globals_get("db.escape_identifiers") {
             $escapedTable = $this->escapeIdentifier($table);
         } else {
             $escapedTable = $table;
@@ -628,7 +637,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param type $primaryKey
      * @return type
      */
-    public function lastInsertId($tableName = null, $primaryKey = null) {
+    public function lastInsertId($tableName = null, $primaryKey = null)
+    {
         // $sql = 'SET NOCOUNT ON; SELECT CAST(SCOPE_IDENTITY() as int) as id';
         // echo __FUNCTION__.': '.$this->instance.'<br>'; die;
         return $this->_lastID;
@@ -643,7 +653,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param type $dataTypes
      * @return type
      */
-    public function delete($table, $whereCondition = null, $placeholders = null, $dataTypes = null) {
+    public function delete($table, $whereCondition = null, $placeholders = null, $dataTypes = null)
+    {
         $sql;
         $escapedTable;
         if (false) { // globals_get("db.escape_identifiers") {
@@ -673,7 +684,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param    string schema
      * @return    Phalcon\Db\Index[]
      */
-    public function describeIndexes($table, $schema = null) {
+    public function describeIndexes($table, $schema = null)
+    {
         $dialect = $this->_dialect;
         $indexes = array();
         $temps = $this->fetchAll($dialect->describeIndexes($table, $schema), \Phalcon\Db::FETCH_ASSOC);
@@ -705,7 +717,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param    string schema
      * @return    Phalcon\Db\Reference[]
      */
-    public function describeReferences($table, $schema = null) {
+    public function describeReferences($table, $schema = null)
+    {
         $dialect = $this->_dialect;
         $emptyArr = array();
         $references = array();
@@ -746,7 +759,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * @param    string schemaName
      * @return    array
      */
-    public function tableOptions($tableName, $schemaName = null) {
+    public function tableOptions($tableName, $schemaName = null)
+    {
         $dialect = $this->_dialect;
         $sql = $dialect->tableOptions($tableName, $schemaName);
         if ($sql) {
@@ -762,7 +776,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function begin($nesting = false) {
+    public function begin($nesting = false)
+    {
         //						$this->execute('SET QUOTED_IDENTIFIER OFF');
         //						$this->execute('SET NOCOUNT OFF');
         $this->execute('BEGIN TRANSACTION;');
@@ -775,7 +790,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function commit($nesting = false) {
+    public function commit($nesting = false)
+    {
         $this->execute('COMMIT TRANSACTION');
         return true;
     }
@@ -786,12 +802,14 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    public function rollBack($nesting = false) {
+    public function rollBack($nesting = false)
+    {
         $this->execute('ROLLBACK TRANSACTION');
         return true;
     }
 
-    public function getTransactionLevel() {
+    public function getTransactionLevel()
+    {
         return (int) $this->fetchOne('SELECT @@TRANCOUNT as level');
     }
 
@@ -800,7 +818,8 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return string
      */
-    protected function _dsn() {
+    protected function _dsn()
+    {
         // baseline of DSN parts
         $dsn = $this->_config;
         // don't pass the username and password in the DSN
@@ -858,57 +877,57 @@ class Sqlsrv extends \Phalcon\Db\Adapter\Pdo implements \Phalcon\Db\AdapterInter
      *
      * @return bool
      */
-//    public function execute($sqlStatement, $bindParams = null, $bindTypes = null)
-    //    {
-    //        $eventsManager = $this->_eventsManager;
-    //
-    //        /*
-    //         * Execute the beforeQuery event if a EventsManager is available
-    //         */
-    //        if (is_object($eventsManager)) {
-    //            $this->_sqlStatement = $sqlStatement;
-    //            $this->_sqlVariables = $bindParams;
-    //            $this->_sqlBindTypes = $bindTypes;
-    //
-    //            if ($eventsManager->fire('db:beforeQuery', $this, $bindParams) === false) {
-    //                return false;
-    //            }
-    //        }
-    //
-    //        /*
-    //         * Initialize affectedRows to 0
-    //         */
-    //        $affectedRows = 0;
-    //
-    //        $pdo = $this->_pdo;
-    //
-    //        $cursor = \PDO::CURSOR_SCROLL;
-    //        if (strpos($sqlStatement, 'exec') !== false) {
-    //            $cursor = \PDO::CURSOR_FWDONLY;
-    //        }
-    //
-    //        if (is_array($bindParams)) {
-    //            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
-    //            if (is_object($statement)) {
-    //                $newStatement = $this->executePrepared($statement, $bindParams, $bindTypes);
-    //                $affectedRows = $newStatement->rowCount();
-    //            }
-    //        } else {
-    ////            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
-    ////            $statement->execute();
-    //            $affectedRows = $pdo->exec($sqlStatement);
-    //        }
-    //
-    //        /*
-    //         * Execute the afterQuery event if an EventsManager is available
-    //         */
-    //        if (is_int($affectedRows)) {
-    //            $this->_affectedRows = affectedRows;
-    //            if (is_object($eventsManager)) {
-    //                $eventsManager->fire('db:afterQuery', $this, $bindParams);
-    //            }
-    //        }
-    //
-    //        return true;
-    //    }
+    public function execute($sqlStatement, $bindParams = null, $bindTypes = null): bool
+    {
+        $eventsManager = $this->_eventsManager;
+
+        /*
+            * Execute the beforeQuery event if a EventsManager is available
+            */
+        if (is_object($eventsManager)) {
+            $this->_sqlStatement = $sqlStatement;
+            $this->_sqlVariables = $bindParams;
+            $this->_sqlBindTypes = $bindTypes;
+
+            if ($eventsManager->fire('db:beforeQuery', $this, $bindParams) === false) {
+                return false;
+            }
+        }
+
+        /*
+         * Initialize affectedRows to 0
+         */
+        $affectedRows = 0;
+
+        $pdo = $this->_pdo;
+
+        $cursor = \PDO::CURSOR_SCROLL;
+        if (strpos($sqlStatement, 'exec') !== false) {
+            $cursor = \PDO::CURSOR_FWDONLY;
+        }
+
+        if (is_array($bindParams)) {
+            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
+            if (is_object($statement)) {
+                $newStatement = $this->executePrepared($statement, $bindParams, $bindTypes);
+                $affectedRows = $newStatement->rowCount();
+            }
+        } else {
+            //            $statement = $pdo->prepare($sqlStatement, array(\PDO::ATTR_CURSOR => $cursor));
+            //            $statement->execute();
+            $affectedRows = $pdo->exec($sqlStatement);
+        }
+
+        /*
+            * Execute the afterQuery event if an EventsManager is available
+            */
+        if (is_int($affectedRows)) {
+            $this->_affectedRows = affectedRows;
+            if (is_object($eventsManager)) {
+                $eventsManager->fire('db:afterQuery', $this, $bindParams);
+            }
+        }
+
+        return true;
+    }
 }
