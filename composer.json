@@ -13,7 +13,7 @@
 	],
 	"license": "MIT",
 	"support": {
-		"issues": "https://github.com/paneluk/phalcon4-sqlsrv/issues",
+		"issues": "https://github.com/paneluk/phalcon4-sqlsrv/issues"
 	},
 	"require": {
 		"php": ">=7.2",
