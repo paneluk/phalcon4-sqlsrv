@@ -6,4 +6,3 @@
 .env*
 .sw*
 composer.lock
-/nbproject/private/

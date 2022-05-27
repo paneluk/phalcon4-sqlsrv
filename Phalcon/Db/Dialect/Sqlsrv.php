@@ -164,16 +164,8 @@ class Sqlsrv extends \Phalcon\Db\Dialect
                 }
                 $size = $column->getSize();
                 if ($size) {
-                    //                    $scale = $column->getScale();
-                    //                    if ($scale) {
-                    //                        $columnSql .= '('.size.','.scale.')';
-                    //                    } else {
                     $columnSql .= '(' . size . ')';
-                    //                    }
                 }
-                //                if ($column->isUnsigned()) {
-                //                    $columnSql .= ' UNSIGNED';
-                //                }
                 break;
 
             case Column::TYPE_DOUBLE:
@@ -190,9 +182,6 @@ class Sqlsrv extends \Phalcon\Db\Dialect
                         $columnSql .= ')';
                     }
                 }
-                //                if ($column->isUnsigned()) {
-                //                    $columnSql .= ' UNSIGNED';
-                //                }
                 break;
 
             case Column::TYPE_BIGINTEGER:
@@ -203,9 +192,6 @@ class Sqlsrv extends \Phalcon\Db\Dialect
                 if ($size) {
                     $columnSql .= '(' . $size . ')';
                 }
-                //                if ($column->isUnsigned()) {
-                //                    $columnSql .= ' UNSIGNED';
-                //                }
                 break;
 
             case Column::TYPE_TINYBLOB:

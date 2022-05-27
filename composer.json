@@ -1,38 +1,37 @@
 {
-    "name": "qualiasystems/phalcon-sqlsrv",
-    "description": "Qualia Systems Inc. Component for Phalcon - MS SQL Server (PDO) Adapter",
-    "keywords": ["framework", "phalcon", "sqlsrv"],
-    "authors": [{
-        "name": "Futoshi Okazaki",
-        "email": "futoshi@qualias.jp"
-    }],
-  "license": "MIT",
-    "support": {
-        "issues": "https://github.com/phalcon/incubator/issues",
-        "source": "https://github.com/phalcon/incubator",
-        "forum": "https://forum.phalconphp.com/",
-        "docs": "https://docs.phalconphp.com/",
-        "irc": "irc://irc.freenode.org/phalconphp",
-        "rss": "https://blog.phalconphp.com/rss",
-        "email": "support@phalconphp.com"
-    },
-    "require": {
-        "php": ">=7.2",
-        "ext-phalcon": ">=3.0.0"
-    },
-    "require-dev": {
-        "codeception/verify": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Phalcon\\Db\\": "Phalcon/Db/",
-            "Phalcon\\Logger\\": "Phalcon/Logger/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Phalcon\\Db\\": "Phalcon/Db/",
-            "Phalcon\\Logger\\": "Phalcon/Logger/"
-        }
-    }
+	"name": "paneluk/phalcon4-sqlsrv",
+	"description": "Component for Phalcon 4 - MS SQL Server (PDO) Adapter",
+	"authors": [
+		{
+			"name": "Futoshi Okazaki",
+			"email": "futoshi@qualias.jp"
+		},
+		{
+	        "name": "Ryan Nolan",
+	        "email": "ryan.nolan@panel-uk.com"
+	    }
+	],
+	"license": "MIT",
+	"support": {
+		"issues": "https://github.com/paneluk/phalcon4-sqlsrv/issues",
+	},
+	"require": {
+		"php": ">=7.2",
+		"ext-phalcon": ">=4.0.0"
+	},
+	"require-dev": {
+		"codeception/verify": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Phalcon\\Db\\": "Phalcon/Db/",
+			"Phalcon\\Logger\\": "Phalcon/Logger/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Phalcon\\Db\\": "Phalcon/Db/",
+			"Phalcon\\Logger\\": "Phalcon/Logger/"
+		}
+	}
 }
